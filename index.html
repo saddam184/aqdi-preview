@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عقدي - خزنة العقود والمهام</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mut:#667085;--bd:#e3e6ea;--ac:#0f766e;--ac2:#fff;--warn:#fef3c7;--warnt:#92400e;--err:#b42318;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171a;--card:#1d2125;--tx:#e8eaed;--mut:#9aa3ad;--bd:#2d3339;--ac:#2dd4bf;--ac2:#06231f;--warn:#3a2e0b;--warnt:#fcd34d;--err:#f97066}}
+:root[data-theme="dark"]{--bg:#14171a;--card:#1d2125;--tx:#e8eaed;--mut:#9aa3ad;--bd:#2d3339;--ac:#2dd4bf;--ac2:#06231f;--warn:#3a2e0b;--warnt:#fcd34d;--err:#f97066}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Tajawal,Tahoma,Arial,sans-serif;line-height:1.7;min-height:100%}
+main{max-width:820px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.4rem;margin:0}h2{font-size:1.05rem;margin:0 0 8px}
+.mut,.sub,.tag{color:var(--mut)}.tag{font-size:.85rem}
+.err{color:var(--err)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+input,textarea{width:100%;border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--tx);margin-bottom:8px}
+textarea{min-height:140px;resize:vertical}
+select{width:100%;border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--tx);margin-bottom:8px}
+button{font:inherit;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;cursor:pointer}
+button.p{background:var(--ac);color:var(--ac2);border-color:var(--ac);font-weight:700}
+button:disabled{opacity:.5}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.bar h1{flex:1}
+.burger{font-size:1.3rem;padding:6px 12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.6rem;color:var(--ac)}
+.item{border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--card)}
+.item b{display:block}
+img.pic{max-width:100%;border-radius:10px;border:1px solid var(--bd);margin:8px 0}
+pre{white-space:pre-wrap;font:inherit;background:var(--bg);padding:10px;border-radius:10px;margin:8px 0}
+.warn{background:var(--warn);color:var(--warnt);padding:10px;border-radius:10px;margin-top:8px}
+.done{text-decoration:line-through;color:var(--mut)}
+.bell{position:relative}.badge{position:absolute;top:-4px;inset-inline-end:-4px;background:var(--err);color:#fff;border-radius:9px;font-size:.7rem;padding:0 5px;line-height:1.4}
+.hide{display:none!important}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+#ov.on{opacity:1;pointer-events:auto}
+#dr{position:fixed;top:0;bottom:0;inset-inline-start:0;width:clamp(260px,25vw,340px);max-width:85vw;background:var(--card);border-inline-end:1px solid var(--bd);transform:translateX(100%);transition:transform .25s;z-index:21;padding:calc(16px + env(safe-area-inset-top,0px)) 14px 16px;display:flex;flex-direction:column;gap:6px}
+#dr.on{transform:translateX(0)}
+[dir=ltr] #dr{transform:translateX(-100%)}[dir=ltr] #dr.on{transform:none}
+#dr .nm{padding:6px 6px 12px;border-bottom:1px solid var(--bd);margin-bottom:6px}
+#dr button{text-align:start;border:0;background:transparent;padding:11px 10px}
+#dr button:hover{background:var(--bg)}
+#dr hr{border:0;border-top:1px solid var(--bd);width:100%;margin:4px 0}
+#mo{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:30}
+#mo .card{width:100%;max-width:380px;margin:0}
+</style>
+</head>
+<body>
+<main>
+<div id="auth" class="card hide" style="max-width:420px;margin:8vh auto 0">
+  <button id="lg" data-notr style="float:inline-end">🌐 English</button>
+  <h1 id="at">عقدي 📁</h1>
+  <p class="sub" id="as"></p>
+  <input id="fn" placeholder="الاسم الكامل">
+  <input id="pw" type="password" placeholder="كلمة السر">
+  <input id="pw2" type="password" placeholder="أعد كتابة كلمة السر">
+  <button class="p" id="go">دخول</button>
+  <p class="err" id="am"></p>
+</div>
+
+<div id="app" class="hide">
+  <div class="bar"><button class="burger" id="bg" aria-label="القائمة">☰</button><h1 id="ttl">الرئيسية</h1><button class="burger bell" id="bl" aria-label="التنبيهات">🔔<span class="badge hide" id="bd">0</span></button></div>
+
+  <section id="v-home">
+    <p>أهلًا <b id="who"></b> 👋</p>
+    <div id="h-al"></div>
+    <div class="stats">
+      <div class="stat"><b id="s1">0</b><span class="tag">عقود</span></div>
+      <div class="stat"><b id="s2">0</b><span class="tag">مهام مفتوحة</span></div>
+      <div class="stat"><b id="s3">0</b><span class="tag">متأخرة</span></div>
+    </div>
+    <div class="row" style="margin-bottom:14px"><button class="p" id="q1">+ عقد جديد</button><button class="p" id="q2">+ مهمة جديدة</button></div>
+    <div class="card"><h2>مهام قريبة</h2><div id="h-tasks"></div></div>
+    <div class="card"><h2>آخر العقود</h2><div id="h-con"></div></div>
+  </section>
+
+  <section id="v-files" class="hide">
+    <div class="card">
+      <h2>إضافة عقد</h2>
+      <input id="cn" placeholder="اسم العقد (مثال: عقد إيجار المكتب)">
+      <label class="mut">تاريخ العقد</label><input id="cd" type="date">
+      <label class="mut">تاريخ انتهاء العقد (اتركه فارغًا ليحاول الذكاء الاصطناعي استخراجه من النص)</label><input id="ce" type="date">
+      <label class="mut">نبّهني قبل الانتهاء بـ (أيام)</label><input id="cr" type="number" min="1" value="30">
+      <label class="mut">نوع العقد</label><select id="ck"><option value="إيجار">إيجار</option><option value="توريد">توريد</option><option value="خدمات">خدمات</option><option value="عمل">عمل</option><option value="أخرى">أخرى</option></select>
+      <textarea id="ct" placeholder="اكتب أو الصق نص العقد هنا (اختياري)"></textarea>
+      <div class="row" style="margin-bottom:8px"><button id="pst">📋 لصق من الحافظة</button><button id="smp">🧪 عقد تجريبي</button><button id="cls">مسح النص</button></div>
+      <label class="mut">أو ارفع صورة أو ملف PDF:</label>
+      <input id="cf" type="file" accept="image/*,application/pdf">
+      <div class="row"><button class="p" id="save">حفظ العقد</button><span class="mut" id="smsg"></span></div>
+    </div>
+    <input id="q" placeholder="🔍 ابحث باسم العقد أو التاريخ">
+    <select id="qk"><option value="">كل الأنواع</option><option value="إيجار">إيجار</option><option value="توريد">توريد</option><option value="خدمات">خدمات</option><option value="عمل">عمل</option><option value="أخرى">أخرى</option></select>
+    <div id="list"></div>
+  </section>
+
+  <section id="v-tasks" class="hide">
+    <div class="card">
+      <h2>مهمة جديدة</h2>
+      <input id="tt" placeholder="المهمة">
+      <input id="td" type="date">
+      <button class="p" id="addt">إضافة</button>
+    </div>
+    <div id="tasks"></div>
+  </section>
+</div>
+</main>
+
+<div id="ov"></div>
+<aside id="dr"></aside>
+
+<script>
+const $ = id => document.getElementById(id);
+let db, uid, base, P = null, contracts = [], tasks = [], unsub = null, fails = 0, locked = 0;
+
+function el(tag, txt, cls){ const e = document.createElement(tag); if(txt != null) e.textContent = txt; if(cls) e.className = cls; return e; }
+const rnd = () => Array.from(crypto.getRandomValues(new Uint8Array(8)), x => x.toString(16).padStart(2, "0")).join("");
+async function H(p, salt){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(salt + p)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, "0")).join(""); }
+const today = () => new Date().toISOString().slice(0, 10);
+
+/* ---------- Local DB fallback (localStorage) ---------- */
+function makeLocalDB(){
+  const KEY = 'aqdi_store_v1';
+  let store = {};
+  try{ store = JSON.parse(localStorage.getItem(KEY) || '{}'); }catch(e){ store = {}; }
+  const subs = {};
+  function persist(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
+    // notify subscribers
+    Object.keys(subs).forEach(prefix => {
+      const docs = Object.keys(store).filter(p => p === prefix || p.startsWith(prefix + '/')).map(p => ({id: p.split('/').slice(-1)[0], data: () => store[p]}));
+      subs[prefix].forEach(cb => cb({docs}));
+    });
+  }
+  return {
+    doc(path){
+      return {
+        get: async () => ({ exists: !!store[path], data: () => store[path] }),
+        set: async (v) => { store[path] = v; persist(); },
+        update: async (v) => { store[path] = Object.assign({}, store[path] || {}, v); persist(); },
+        delete: async () => { delete store[path]; persist(); }
+      };
+    },
+    collection(prefix){
+      return {
+        onSnapshot: (cb, err) => {
+          subs[prefix] = subs[prefix] || [];
+          subs[prefix].push(cb);
+          // initial call
+          const docs = Object.keys(store).filter(p => p === prefix || p.startsWith(prefix + '/')).map(p => ({id: p.split('/').slice(-1)[0], data: () => store[p]}));
+          setTimeout(() => cb({docs}), 0);
+          return () => { subs[prefix] = subs[prefix].filter(x => x !== cb); };
+        }
+      };
+    }
+  };
+}
+
+/* ---------- boot & auth ---------- */
+async function boot(){
+  // If claude is present use remote DB, otherwise use local fallback
+  if(window.claude){
+    try{ const user = await claude.use("user"); db = await claude.use("db"); uid = user && await user.id(); }catch(e){}
+    if(!db || !uid){ showAuth("err", "التخزين غير متاح. افتح الصفحة من حسابك في claude.ai."); return; }
+    base = "data/users/" + uid;
+    try{ const s = await db.doc(base + "/profile").get(); P = s.exists ? s.data() : null; }catch(e){}
+    try{ const t = await db.doc(base + "/tasks").get(); tasks = (t.exists && t.data().items) || []; }catch(e){}
+    if(!unsub) unsub = db.collection(base).onSnapshot(s => {
+      contracts = s.docs.filter(d => d.id.startsWith("c") && d.data() && d.data().name).map(d => ({id:d.id, ...d.data()}));
+      renderList(); renderHome();
+    }, e => {});
+    try{ const t = localStorage.getItem("aqdi-theme"); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+    showAuth();
+    return;
+  }
+
+  // Local fallback (no claude)
+  db = makeLocalDB();
+  uid = localStorage.getItem('aqdi_uid');
+  if(!uid){ uid = 'local-' + rnd(); localStorage.setItem('aqdi_uid', uid); }
+  base = "data/users/" + uid;
+  try{ const s = await db.doc(base + "/profile").get(); P = s.exists ? s.data() : null; }catch(e){}
+  try{ const t = await db.doc(base + "/tasks").get(); tasks = (t.exists && t.data().items) || []; }catch(e){}
+  if(!unsub) unsub = db.collection(base).onSnapshot(s => {
+    contracts = s.docs.filter(d => d.id.startsWith("c") && d.data() && d.data().name).map(d => ({id:d.id, ...d.data()}));
+    renderList(); renderHome();
+  }, e => {});
+  try{ const t = localStorage.getItem("aqdi-theme"); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+  showAuth();
+}
+
+function showAuth(mode, msg){
+  $("app").classList.add("hide"); $("auth").classList.remove("hide"); $("am").textContent = msg || "";
+  const setup = !P || !P.hash;
+  $("fn").classList.toggle("hide", !setup); $("pw2").classList.toggle("hide", !setup);
+  $("pw").value = ""; $("pw2").value = ""; $("go").disabled = mode == "err";
+  if(setup){ $("at").textContent = "مرحبًا بك في عقدي 📁"; $("as").textContent = "أنشئ حسابك: اسمك الكامل وكلمة سر تدخل بها كل مرة."; $("fn").value = (P && P.name) || ""; $("go").textContent = "إنشاء الحساب"; }
+  else { $("at").textContent = "أهلًا " + P.name; $("as").textContent = "اكتب كلمة السر للدخول."; $("go").textContent = "دخول"; }
+}
+
+$("go").onclick = async () => {
+  const msg = $("am"); msg.textContent = "";
+  const setup = !P || !P.hash, pw = $("pw").value;
+  try{
+    if(setup){
+      const n = $("fn").value.trim();
+      if(n.split(/\s+/).length < 2) return msg.textContent = "اكتب الاسم الكامل (اسمين على الأقل).";
+      if(pw.length < 4) return msg.textContent = "كلمة السر 4 أحرف أو أرقام على الأقل.";
+      if(pw != $("pw2").value) return msg.textContent = "كلمتا السر غير متطابقتين.";
+      const salt = rnd(), np = {name:n, salt, hash: await H(pw, salt)};
+      await db.doc(base + "/profile").set(np); P = np; enter();
+    } else {
+      if(Date.now() < locked) return msg.textContent = "محاولات كثيرة، انتظر قليلًا.";
+      if(await H(pw, P.salt) === P.hash){ fails = 0; enter(); }
+      else { fails++; if(fails >= 5){ locked = Date.now() + 15000; fails = 0; msg.textContent = "5 محاولات خاطئة. انتظر 15 ثانية."; } else msg.textContent = "كلمة السر غير صحيحة."; }
+    }
+  }catch(e){ msg.textContent = "تعذر المتابعة: " + (e.code || e.message || e); }
+};
+["pw","pw2","fn"].forEach(i => $(i).addEventListener("keydown", e => { if(e.key == "Enter") $("go").click(); }));
+
+async function enter(){
+  $("auth").classList.add("hide"); $("app").classList.remove("hide"); $("who").textContent = P.name;
+  try{ const t = await db.doc(base + "/tasks").get(); tasks = (t.exists && t.data().items) || []; }catch(e){}
+  if(!unsub) unsub = db.collection(base).onSnapshot(s => {
+    contracts = s.docs.filter(d => d.id.startsWith("c") && d.data() && d.data().name).map(d => ({id:d.id, ...d.data()}));
+    renderList(); renderHome();
+  }, e => {});
+  buildDrawer(); go("home");
+}
+
+/* ---------- navigation & drawer ---------- */
+const TT = {home:"الرئيسية", files:"ملفاتي", tasks:"المهام اليومية"};
+function go(v){
+  ["home","files","tasks"].forEach(k => $("v-" + k).classList.toggle("hide", k != v));
+  $("ttl").textContent = TT[v]; renderHome(); renderTasks(); closeDr(); scrollTo(0, 0);
+}
+function openDr(){ $("dr").classList.add("on"); $("ov").classList.add("on"); }
+function closeDr(){ $("dr").classList.remove("on"); $("ov").classList.remove("on"); }
+$("bg").onclick = openDr; $("ov").onclick = closeDr;
+$("q1").onclick = () => { go("files"); $("cn").focus(); }; $("q2").onclick = () => { go("tasks"); $("tt").focus(); };
+
+function buildDrawer(){
+  const d = $("dr"); d.textContent = "";
+  const nm = el("div", null, "nm"); nm.appendChild(el("b", P.name)); nm.appendChild(el("span", "حسابي", "tag")); d.appendChild(nm);
+  const items = [
+    ["🏠 الرئيسية", () => go("home")], ["📁 ملفاتي", () => go("files")], ["✅ المهام اليومية", () => go("tasks")], null,
+    ["✏️ تعديل الاسم", editName], ["🔑 تعديل الرمز", editPw], ["🌓 الوضع الداكن / الفاتح", toggleTheme],
+    ["📋 نسخ بياناتي احتياطيًا", backup], ["🤖 تفعيل المساعد الذكي", enableAi], ["🌐 " + (LANG == "en" ? "العربية" : "English"), toggleLang], null,
+    ["🚪 تسجيل الخروج", logout]
+  ];
+  items.forEach(i => { if(!i) return d.appendChild(document.createElement("hr")); const b = el("button", i[0]); if(i[1] === toggleLang) b.dataset.notr = "1"; b.onclick = i[1]; d.appendChild(b); });
+}
+
+function logout(){
+  closeDr(); const mo = $("mo"); if(mo) mo.remove();
+  if(unsub){ unsub(); unsub = null; }
+  contracts = []; tasks = [];
+  ["list", "tasks", "h-tasks", "h-con", "h-al", "dr"].forEach(i => { $(i).textContent = ""; });
+  ["cn", "ct", "cf", "ce", "q", "tt", "td", "fn", "qk"].forEach(i => { $(i).value = ""; });
+  ["who", "smsg"].forEach(i => { $(i).textContent = ""; });
+  ["s1", "s2", "s3"].forEach(i => { $(i).textContent = "0"; }); $("bd").classList.add("hide");
+  showAuth("", "تم تسجيل الخروج."); scrollTo(0, 0);
+}
+function modal(title, fields, onOk){
+  const o = el("div"); o.id = "mo"; const c = el("div", null, "card"); c.appendChild(el("h2", title));
+  const ins = fields.map(f => { const i = el("input"); i.placeholder = f.ph; i.type = f.type || "text"; if(f.val) i.value = f.val; c.appendChild(i); return i; });
+  const m = el("p", "", "err"), r = el("div", null, "row"), ok = el("button", "حفظ", "p"), no = el("button", "إلغاء");
+  no.onclick = () => o.remove();
+  ok.onclick = async () => { const e = await onOk(ins.map(i => i.value)); if(e) m.textContent = e; else o.remove(); };
+  r.appendChild(ok); r.appendChild(no); c.appendChild(m); c.appendChild(r); o.appendChild(c); document.body.appendChild(o); ins[0].focus();
+}
+function editName(){ closeDr(); modal("تعديل الاسم", [{ph:"الاسم الكامل", val:P.name}], async v => {
+  const n = v[0].trim(); if(n.split(/\s+/).length < 2) return "اكتب الاسم الكامل (اسمين على الأقل).";
+  try{ P = {...P, name:n}; await db.doc(base + "/profile").set(P); $("who").textContent = n; buildDrawer(); }catch(e){ return "تعذر الحفظ."; }
+}); }
+function editPw(){ closeDr(); modal("تعديل الرمز", [{ph:"كلمة السر الحالية", type:"password"}, {ph:"كلمة السر الجديدة", type:"password"}, {ph:"أعد الجديدة", type:"password"}], async v => {
+  if(await H(v[0], P.salt) !== P.hash) return "كلمة السر الحالية غير صحيحة.";
+  if(v[1].length < 4) return "الجديدة 4 أحرف أو أرقام على الأقل.";
+  if(v[1] != v[2]) return "كلمتا السر غير متطابقتين.";
+  try{ const salt = rnd(); P = {...P, salt, hash: await H(v[1], salt)}; await db.doc(base + "/profile").set(P); }catch(e){ return "تعذر الحفظ."; }
+}); }
+function toggleTheme(){
+  const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme == "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark"; try{ localStorage.setItem("aqdi-theme", r.dataset.theme); }catch(e){} closeDr();
+}
+async function backup(){
+  closeDr(); const data = JSON.stringify({tasks, contracts: contracts.map(c => ({name:c.name, date:c.date, text:c.text}))}, null, 1);
+  try{ await navigator.clipboard.writeText(data); modal("تم النسخ", [], async () => null); }catch(e){ modal("تعذر النسخ", [], async () => null); }
+}
+
+/* ---------- home ---------- */
+function renderHome(){ renderAlerts();
+  $("s1").textContent = contracts.length;
+  const open = tasks.filter(k => !k.done); $("s2").textContent = open.length;
+  $("s3").textContent = open.filter(k => k.d && k.d < today()).length;
+  const ht = $("h-tasks"); ht.textContent = "";
+  const up = open.slice().sort((a, b) => (a.d || "9") < (b.d || "9") ? -1 : 1).slice(0, 5);
+  if(!up.length) ht.appendChild(el("p", "لا مهام مفتوحة 🎉", "mut"));
+  up.forEach(k => { const r = el("div", null, "row"); r.appendChild(el("span", k.t)); r.appendChild(el("span", k.d || "بلا موعد", k.d && k.d < today() ? "tag err" : "tag")); ht.appendChild(r); });
+  const hc = $("h-con"); hc.textContent = "";
+  const rc = contracts.slice().sort((a, b) => b.created - a.created).slice(0, 3);
+  if(!rc.length) hc.appendChild(el("p", "لا توجد عقود بعد.", "mut"));
+  rc.forEach(c => { const r = el("div", null, "row"); r.appendChild(el("span", c.name)); r.appendChild(el("span", c.date || "", "tag")); hc.appendChild(r); });
+}
+
+/* ---------- contracts ---------- */
+function compress(file){
+  return new Promise((res, rej) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const im = new Image();
+      im.onload = () => {
+        let w = Math.min(1100, im.width), q = 0.65, out;
+        do{ const h = Math.round(im.height * w / im.width), c = document.createElement("canvas"); c.width = w; c.height = h; c.getContext("2d").drawImage(im, 0, 0, w, h);
+          out = c.toDataURL("image/jpeg", q); w = Math.round(w * 0.85); q = Math.max(0.4, q - 0.05); }while(out.length > 150000 && w > 300);
+        res(out);
+      };
+      im.onerror = () => rej(new Error("imgfail")); im.src = fr.result;
+    };
+    fr.onerror = () => rej(new Error("imgfail")); fr.readAsDataURL(file);
+  });
+}
+$("cd").value = today();
+$("save").onclick = async () => {
+  const name = $("cn").value.trim(), text = $("ct").value.trim().slice(0, 40000), f = $("cf").files[0], m = $("smsg");
+  if(!name) return m.textContent = "اكتب اسم العقد.";
+  if(!text && !f) return m.textContent = "اكتب نص العقد أو ارفع صورة.";
+  $("save").disabled = true; m.textContent = "جارٍ الحفظ...";
+  try{
+    let img = "", imgFail = false;
+    if(f && f.type == "application/pdf") img = pdfImg; else if(f){ try{ img = await compress(f); }catch(e){ imgFail = true; } }
+    if((imgFail || (f && f.type == "application/pdf" && !img)) && !text){ m.textContent = "تعذر قراءة الملف. جرّب صورة JPG أو PNG أو ملف PDF فيه نص (صور HEIC قد لا تعمل)."; $("save").disabled = false; return; }
+    let end = $("ce").value, auto = false;
+    if(!end && text){ m.textContent = "جارٍ البحث عن تاريخ الانتهاء..."; end = await findEnd(text); auto = !!end; }
+    await db.doc(base + "/c" + Date.now()).set({name, date:$("cd").value, end:end || "", auto, remind:Math.max(1, +$("cr").value || 30), kind:$("ck").value, text, img, analysis:null, created:Date.now()});
+    $("cn").value = ""; $("ct").value = ""; $("cf").value = ""; $("ce").value = "";
+    m.textContent = end ? "تم الحفظ ✓ تاريخ الانتهاء: " + end + (auto ? " (استُخرج تلقائيًا، تأكد منه)" : "") : "تم الحفظ ✓ (بلا تاريخ انتهاء، لن يصلك تنبيه لهذا العقد)";
+    if(imgFail) m.textContent += " — لم تُحفظ الصورة لأنها تعذرت قراءتها.";
+  }catch(e){ m.textContent = "تعذر الحفظ: " + (typeof e == "string" ? e : (e && (e.code || e.message)) || "خطأ غير معروف"); }
+  $("save").disabled = false;
+};
+$("q").oninput = renderList; $("qk").onchange = renderList;
+
+function renderList(){
+  const q = $("q").value.trim().toLowerCase(), box = $("list"); box.textContent = "";
+  const rows = contracts.filter(c => (c.name + " " + c.date).toLowerCase().includes(q) && (!$("qk").value || c.kind == $("qk").value)).sort((a, b) => b.created - a.created);
+  if(!rows.length) return box.appendChild(el("p", contracts.length ? "لا نتائج مطابقة." : "لا توجد عقود محفوظة بعد.", "mut"));
+  rows.forEach(c => {
+    const d = el("div", null, "item"), head = el("div", null, "row"), t = el("div");
+    t.appendChild(el("b", c.name)); t.appendChild(el("span", (c.kind ? c.kind + " · " : "") + (c.date || "بلا تاريخ") + (c.end ? " · ينتهي " + c.end : "") + (c.img ? " · صورة" : "") + (c.text ? " · نص" : ""), "tag")); t.style.flex = "1"; head.appendChild(t);
+    const open = el("button", "عرض"), del = el("button", "حذف"); head.appendChild(open); head.appendChild(del); d.appendChild(head);
+    const body = el("div", null, "hide"); d.appendChild(body);
+    open.onclick = () => { body.classList.toggle("hide"); if(!body.hasChildNodes()) fill(body, c); if(body.classList.contains("hide")) OP.delete(c.id); else OP.add(c.id); };
+    if(OP.has(c.id)){ body.classList.remove("hide"); fill(body, c); }
+    del.onclick = () => sure("حذف «" + c.name + "» نهائيًا؟", async () => { await db.doc(base + "/" + c.id).delete(); contracts = contracts.filter(x => x.id != c.id); renderList(); renderHome(); });
+    box.appendChild(d);
+  });
+}
+function showAnalysis(host, a){
+  host.textContent = ""; const w = el("div", null, "warn"); w.appendChild(el("b", "تحليل أولي (ليس استشارة قانونية)")); w.appendChild(el("p", a.summary));
+  [["التواريخ المهمة", a.dates], ["الالتزامات", a.obligations], ["نقاط تحتاج انتباهًا", a.flags]].forEach(([h, arr]) => {
+    w.appendChild(el("b", h)); const ul = el("ul"); (arr && arr.length ? arr : ["لا يوجد"]).forEach(x => ul.appendChild(el("li", x))); w.appendChild(ul); });
+  host.appendChild(w);
+}
+function fill(body, c){
+  if(c.img){ const i = el("img"); i.className = "pic"; i.src = c.img; body.appendChild(i); }
+  if(c.text) body.appendChild(el("pre", c.text));
+  const er = el("div", null, "row"), ei = el("input"); ei.type = "date"; ei.value = c.end || ""; ei.style.width = "auto"; ei.style.margin = "8px 0";
+  const eb = el("button", "حفظ تاريخ الانتهاء");
+  eb.onclick = async () => { try{ await db.doc(base + "/" + c.id).update({end:ei.value, auto:false}); eb.textContent = "تم ✓"; }catch(e){ eb.textContent = "تعذر الحفظ"; } };
+  er.appendChild(el("span", "تاريخ الانتهاء:", "tag")); er.appendChild(ei); er.appendChild(eb); body.appendChild(er);
+  const host = el("div"), msg = el("span", "", "mut"); if(c.analysis) showAnalysis(host, c.analysis);
+  if(c.text){
+    const b = el("button", c.analysis ? "إعادة التحليل" : "حلّل العقد بالذكاء الاصطناعي", "p");
+    b.onclick = async () => {
+      b.disabled = true; msg.textContent = " جارٍ التحليل...";
+      try{
+        const s = await claude.use("sample"); if(!s){ msg.textContent = " التحليل غير متاح هنا."; b.disabled = false; return; }
+        const a = await s.json(`أنت مساعد يقرأ العقود قراءة أولية. أعد JSON فقط بهذا الشكل: {"summary":"ملخص من 3 إلى 4 أسطر","dates":["تاريخ مهم وسببه"],"obligations":["التزام ومن يلتزم به"],"flags":["بند غامض أو ناقص أو غير متوازن"]}. لا تضف أي معلومة غير موجودة في النص، وما لم يُذكر اكتب أنه غير مذكور. عربية مختصرة. ${AN()}
+
+العقد:
+` + c.text, {cache:false});
+        await db.doc(base + "/" + c.id).update({analysis:a}); showAnalysis(host, a); msg.textContent = "";
+      }catch(e){ msg.textContent = " " + aiErr(e); }
+      b.disabled = false;
+    };
+    body.appendChild(b); body.appendChild(msg);
+  } else body.appendChild(el("p", "التحليل التلقائي للنص فقط، لكن يمكنك سؤال المساعد عن الصورة أدناه.", "mut"));
+  body.appendChild(host); body.appendChild(transBox(c)); body.appendChild(chatBox(c));
+}
+
+function sure(msg, fn){
+  const o = el("div"); o.id = "mo"; const c = el("div", null, "card"); c.appendChild(el("h2", msg));
+  const m = el("p", "", "err"), r = el("div", null, "row"), ok = el("button", "نعم، احذف", "p"), no = el("button", "إلغاء");
+  no.onclick = () => o.remove();
+  ok.onclick = async () => { ok.disabled = true; try{ await fn(); o.remove(); }catch(e){ m.textContent = "تعذر الحذف: " + (e.code || e.message || e); ok.disabled = false; } };
+  r.appendChild(ok); r.appendChild(no); c.appendChild(m); c.appendChild(r); o.appendChild(c); document.body.appendChild(o);
+}
+
+function aiErr(e){
+  const k = e && e.code;
+  if(k == "not_granted") return "لم يُسمح للموقع باستخدام Claude. أعد تحميل الصفحة، وعند ظهور نافذة الإذن اضغط «سماح». إن لم تظهر النافذة فقد يكون الاستخدام غير مفعّل لحسابك أو مؤسستك.";
+  if(k == "sampling_disabled") return "خدمة Claude غير متاحة لحسابك أو مؤسستك.";
+  if(k == "rate_limited" || k == "quota_exceeded") return "وصلت إلى حد الاستخدام مؤقتًا، حاول بعد قليل.";
+  return "تعذر الطلب: " + (k || (e && e.message) || "غير معروف");
+}
+function info(t){ const o = el("div"); o.id = "mo"; const c = el("div", null, "card"); c.appendChild(el("p", t)); const b = el("button", "حسنًا", "p"); b.onclick = () => o.remove(); c.appendChild(b); o.appendChild(c); document.body.appendChild(o); }
+async function enableAi(){
+  closeDr(); info("جارٍ اختبار المساعد الذكي... إن ظهرت نافذة إذن فاضغط «سماح»."); const first = $("mo");
+  try{ const s = await claude.use("sample"); if(!s) throw {code:"sampling_disabled"}; await s("أجب بكلمة واحدة: تم", {cache:false}); first.remove(); info("تم تفعيل المساعد الذكي ✓ يمكنك الآن الترجمة والتحليل والأسئلة."); }
+  catch(e){ first.remove(); info(aiErr(e)); }
+}
+const OP = new Set();
+function transBox(c){
+  const box = el("div", null, "card"), sel = el("select"), go = el("button", "ترجم", "p"), out = el("pre"), msg = el("span", "", "mut"), row = el("div", null, "row");
+  box.style.marginTop = "12px"; box.appendChild(el("h2", "🌐 ترجمة العقد"));
+  ["العربية", "الإنجليزية"].forEach(t => { const o = el("option", t); o.value = t; sel.appendChild(o); });
+  const s0 = c.text || "", lat = (s0.match(/[A-Za-z]/g) || []).length, ar = (s0.match(/[\u0600-\u06FF]/g) || []).length;
+  sel.value = lat > ar || !s0 ? "العربية" : "الإنجليزية"; sel.style.width = "auto"; sel.style.margin = "0";
+  row.appendChild(el("span", "ترجم إلى:", "tag")); row.appendChild(sel); row.appendChild(go); row.appendChild(msg); box.appendChild(row);
+  out.classList.add("hide"); box.appendChild(out);
+  if(c.trans){ sel.value = c.trans.lang; out.textContent = c.trans.text; out.classList.remove("hide"); msg.textContent = " ترجمة محفوظة"; }
+  go.onclick = async () => {
+    go.disabled = true; msg.textContent = " جارٍ الترجمة..."; out.classList.remove("hide"); out.textContent = "";
+    try{
+      const s = await claude.use("sample"); if(!s) throw 0;
+      const lang = sel.value, opt = {cache:false, onText: x => { out.textContent = x.text; }};
+      let src = c.text;
+      if(!src){ const l = await s.limits().catch(() => null); if(!l || !l.images) throw {code:"noimg"}; opt.images = [blobOf(c.img)]; src = "(العقد في الصورة المرفقة، اقرأ نصها ثم ترجمه)"; }
+      const res = await s("ترجم العقد التالي إلى اللغة " + lang + " ترجمة دقيقة وأمينة. حافظ على ترتيب البنود وترقيمها، ولا تضف ولا تحذف شيئًا، وأبقِ الأسماء والأرقام والتواريخ والمبالغ كما هي. ترجم المصطلحات القانونية بدقة، وإن صعب نقل مصطلح فضع الأصل بين قوسين بجانب ترجمته. اكتب الترجمة فقط بلا مقدمة.\n\n" + src.slice(0, 60000), opt);
+      out.textContent = res.text; msg.textContent = res.truncated ? " الترجمة مقتطعة لطول العقد." : " تمت الترجمة. هي للفهم وليست ترجمة معتمدة.";
+      if(!res.truncated && (!c.img || res.text.length < 20000)) db.doc(base + "/" + c.id).update({trans:{lang, text:res.text}}).catch(() => {});
+    }catch(e){ out.classList.add("hide"); msg.textContent = e && e.code == "noimg" ? " قراءة الصور غير متاحة هنا، الصق نص العقد." : " " + aiErr(e); }
+    go.disabled = false;
+  };
+  return box;
+}
+
+$("pst").onclick = async () => {
+  const m = $("smsg");
+  try{
+    const t = await navigator.clipboard.readText();
+    if(!t.trim()){ m.textContent = "الحافظة فارغة. انسخ نص العقد أولًا."; return; }
+    $("ct").value = t.slice(0, 40000); m.textContent = "تم لصق العقد ✓";
+  }catch(e){ $("ct").focus(); m.textContent = "المتصفح منع اللصق التلقائي. اضغط داخل الخانة مطوّلًا أو استخدم Ctrl+V."; }
+};
+$("cls").onclick = () => { $("ct").value = ""; $("smsg").textContent = ""; };
+$("smp").onclick = () => {
+  $("cn").value = LANG == "en" ? "Office lease (sample)" : "عقد إيجار مكتب (تجريبي)"; $("ck").value = "إيجار"; $("ce").value = "";
+  $("ct").value = `OFFICE LEASE AGREEMENT
+
+This Lease Agreement is made on 1 November 2025 between Al-Noor Properties LLC ("Landlord") and Horizon Trading Company ("Tenant").
+
+1. Premises: The Landlord leases to the Tenant Office No. 12, located on the 3rd floor of Tower B, Riyadh.
+
+2. Term: The lease begins on 1 November 2025 and expires on 1 November 2026. This lease does not renew automatically.
+
+3. Rent: The Tenant shall pay SAR 60,000 per year, payable in two installments of SAR 30,000, on 1 November 2025 and 1 May 2026.
+
+4. Security Deposit: The Tenant shall pay a refundable deposit of SAR 5,000. The deposit will be returned within 30 days after the Tenant vacates the premises, less any damages.
+
+5. Late Payment: A penalty of 2% of the unpaid amount applies for each week of delay.
+
+6. Termination: Either party may terminate this lease with 60 days' written notice. If the Tenant terminates early, the Tenant forfeits the security deposit.
+
+7. Maintenance: The Tenant is responsible for minor repairs. The Landlord is responsible for structural repairs.
+
+8. Governing Law: This agreement is governed by the laws of the Kingdom of Saudi Arabia.`;
+  $("smsg").textContent = "تمت تعبئة عقد تجريبي. اضغط «حفظ العقد».";
+};
+
+let pdfImg = "";
+function loadPdfJs(){
+  return window.pdfjsLib ? Promise.resolve(window.pdfjsLib) : new Promise((ok, no) => {
+    const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    s.onload = () => { pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; ok(pdfjsLib); };
+    s.onerror = no; document.head.appendChild(s);
+  });
+}
+async function readPdf(f){
+  const lib = await loadPdfJs(), pdf = await lib.getDocument({data: new Uint8Array(await f.arrayBuffer())}).promise;
+  let text = "";
+  for(let i = 1; i <= Math.min(pdf.numPages, 40) && text.length < 40000; i++){
+    const pg = await pdf.getPage(i), tc = await pg.getTextContent(); text += tc.items.map(x => x.str).join(" ") + "\n\n";
+  }
+  text = text.trim(); let img = "";
+  if(text.length <= 50){
+    const pg = await pdf.getPage(1), vp = pg.getViewport({scale:1.5}), c = document.createElement("canvas");
+    c.width = vp.width; c.height = vp.height; await pg.render({canvasContext:c.getContext("2d"), viewport:vp}).promise;
+    let q = 0.65; img = c.toDataURL("image/jpeg", q); while(img.length > 150000 && q > 0.3){ q -= 0.1; img = c.toDataURL("image/jpeg", q); }
+  }
+  return {text, img, pages: pdf.numPages};
+}
+$("cf").onchange = async () => {
+  const f = $("cf").files[0], m = $("smsg"); pdfImg = ""; if(!f || f.type != "application/pdf") return;
+  m.textContent = "جارٍ قراءة ملف PDF...";
+  try{
+    const r = await readPdf(f);
+    if(r.text.length > 50){ $("ct").value = r.text.slice(0, 40000); m.textContent = "تم استخراج النص من " + r.pages + " صفحة. راجعه ثم احفظ."; }
+    else if(r.img){ pdfImg = r.img; m.textContent = "الملف ممسوح ضوئيًا (بلا نص). ستُحفظ صفحته الأولى كصورة."; }
+    else m.textContent = "تعذر استخراج محتوى من الملف.";
+  }catch(e){ m.textContent = "تعذرت قراءة ملف PDF."; }
+};
+
+/* ---------- AI assistant ---------- */
+function blobOf(u){ const p = u.split(","), m = /:(.*?);/.exec(p[0])[1], b = atob(p[1]), a = new Uint8Array(b.length); for(let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return new Blob([a], {type:m}); }
+function chatBox(c){
+  const box = el("div", null, "card"), log = el("div"), qs = el("div", null, "row"), row = el("div", null, "row"), inp = el("input"), send = el("button", "إرسال", "p"), hist = [];
+  box.style.marginTop = "12px"; box.appendChild(el("h2", "🤖 اسأل المساعد عن هذا العقد"));
+  inp.placeholder = "اكتب سؤالك عن العقد..."; inp.style.flex = "1"; inp.style.margin = "0";
+  const ask = async q => {
+    q = q.trim(); if(!q || send.disabled) return; send.disabled = true; inp.value = "";
+    const a = el("pre", "..."); log.appendChild(el("p", "🧑 " + q, "tag")); log.appendChild(a); hist.push({role:"user", content:q});
+    try{
+      const s = await claude.use("sample"); if(!s) throw 0;
+      const intro = {role:"user", content:"أنت مساعد داخل تطبيق عقود. اشرح للعميل بلغة " + LN() + " بسيطة وأجب فقط من العقد التالي. إن لم تجد الجواب فيه فقل ذلك، ولا تخترع بنودًا، ونبّه أن الأمور القانونية الحاسمة تحتاج مراجعة مختص.\n\nاسم العقد: " + c.name + (c.text ? "\n\nنص العقد:\n" + c.text.slice(0, 60000) : "\n\n(العقد صورة مرفقة)")};
+      const opt = {cache:false, onText: x => { a.textContent = x.text; }};
+      if(c.img && !c.text){ const l = await s.limits().catch(() => null); if(!l || !l.images) throw {code:"noimg"}; opt.images = [blobOf(c.img)]; }
+      const res = await s([intro, ...hist.slice(-8)], opt);
+      hist.push({role:"assistant", content:res.text}); a.textContent = res.text;
+    }catch(e){ hist.pop(); a.textContent = e && e.code == "noimg" ? "قراءة الصور غير متاحة هنا. الصق نص العقد ليتمكن المساعد من شرحه." : aiErr(e); }
+    send.disabled = false;
+  };
+  ["لخّص العقد", "ما التزاماتي؟", "اشرح بنود الإنهاء والتجديد", "ما البنود الغامضة أو المخاطر؟", "اشرح العقد بلغة بسيطة"].forEach(t => { const b = el("button", t); b.onclick = () => ask(t); qs.appendChild(b); });
+  send.onclick = () => ask(inp.value); inp.addEventListener("keydown", e => { if(e.key == "Enter") ask(inp.value); });
+  row.appendChild(inp); row.appendChild(send); qs.style.marginBottom = "8px";
+  box.appendChild(qs); box.appendChild(log); box.appendChild(row); return box;
+}
+
+/* ---------- alerts ---------- */
+async function findEnd(text){
+  try{ const s = await claude.use("sample"); if(!s) return "";
+    const r = await s.json('من نص العقد التالي استخرج تاريخ انتهاء العقد فقط. أعد JSON فقط: {"end":"YYYY-MM-DD"} أو {"end":null} إن لم يُذكر تاريخ انتهاء صريح أو لا يمكن حسابه بيقين. لا تخمّن.\n\n' + text, {cache:false});
+    return /^\d{4}-\d{2}-\d{2}$/.test(r.end || "") ? r.end : "";
+  }catch(e){ return ""; }
+}
+function days(d){ return Math.round((new Date(d + "T00:00:00") - new Date(today() + "T00:00:00")) / 864e5); }
+function getAlerts(){
+  const a = [];
+  contracts.forEach(c => { if(!c.end) return; const n = days(c.end), r = c.remind || 30;
+    if(n < 0) a.push({lv:0, t:"انتهى عقد «" + c.name + "» منذ " + (-n) + " يومًا"});
+    else if(n <= r) a.push({lv:n <= 7 ? 0 : 1, t:"عقد «" + c.name + "» " + (n == 0 ? "ينتهي اليوم" : "ينتهي بعد " + n + " يومًا") + " (" + c.end + ")"}); });
+  tasks.forEach(k => { if(k.done || !k.d) return; const n = days(k.d);
+    if(n < 0) a.push({lv:0, t:"مهمة متأخرة: " + k.t + " (منذ " + (-n) + " يومًا)"});
+    else if(n <= 1) a.push({lv:1, t:"مهمة " + (n == 0 ? "اليوم" : "غدًا") + ": " + k.t}); });
+  return a.sort((x, y) => x.lv - y.lv);
+}
+function renderAlerts(){
+  const a = getAlerts(), b = $("bd"); b.textContent = a.length; b.classList.toggle("hide", !a.length);
+  const h = $("h-al"); h.textContent = ""; if(!a.length) return;
+  const c = el("div", null, "card"); c.appendChild(el("h2", "🔔 تنبيهات (" + a.length + ")"));
+  a.forEach(x => c.appendChild(el("p", (x.lv ? "🟡 " : "🔴 ") + x.t, x.lv ? "" : "err")));
+  h.appendChild(c);
+}
+$("bl").onclick = () => go("home");
+
+/* ---------- tasks ---------- */
+async function saveTasks(){ try{ await db.doc(base + "/tasks").set({items:tasks}); }catch(e){} }
+$("addt").onclick = () => { const t = $("tt").value.trim(); if(!t) return; tasks.unshift({t, d:$("td").value, done:false}); $("tt").value = ""; $("td").value = ""; renderTasks(); renderHome(); saveTasks(); };
+function renderTasks(){
+  const box = $("tasks"); box.textContent = "";
+  if(!tasks.length) return box.appendChild(el("p", "لا توجد مهام.", "mut"));
+  tasks.forEach((k, i) => {
+    const d = el("div", null, "item row"), cb = el("input"); cb.type = "checkbox"; cb.checked = k.done; cb.style.width = "auto"; cb.style.margin = "0";
+    cb.onchange = () => { k.done = cb.checked; renderTasks(); renderHome(); saveTasks(); };
+    const t = el("div"); t.style.flex = "1"; t.appendChild(el("b", k.t, k.done ? "done" : "")); t.appendChild(el("span", k.d || "بلا موعد", !k.done && k.d && k.d < today() ? "tag err" : "tag"));
+    const x = el("button", "حذف"); x.onclick = () => { tasks.splice(i, 1); renderTasks(); renderHome(); saveTasks(); };
+    d.appendChild(cb); d.appendChild(t); d.appendChild(x); box.appendChild(d);
+  });
+}
+
+/* ---------- language ---------- */
+let LANG = "ar";
+const LN = () => LANG == "en" ? "إنجليزية" : "عربية";
+const AN = () => LANG == "en" ? "Write every value in English." : "";
+const D = {
+"عقدي 📁":"Aqdi 📁","مرحبًا بك في عقدي 📁":"Welcome to Aqdi 📁","أنشئ حسابك: اسمك الكامل وكلمة سر تدخل بها كل مرة.":"Create your account: your full name and a password you will use each time.","اكتب كلمة السر للدخول.":"Enter your password to sign in.",
+"الاسم الكامل":"Full name","كلمة السر":"Password","أعد كتابة كلمة السر":"Re-enter password","دخول":"Sign in","إنشاء الحساب":"Create account","القائمة":"Menu","التنبيهات":"Alerts",
+"الرئيسية":"Home","ملفاتي":"My Files","المهام اليومية":"Daily Tasks","عقود":"Contracts","مهام مفتوحة":"Open tasks","متأخرة":"Overdue",
+"+ عقد جديد":"+ New contract","+ مهمة جديدة":"+ New task","مهام قريبة":"Upcoming tasks","آخر العقود":"Recent contracts","إضافة عقد":"Add contract",
+"اسم العقد (مثال: عقد إيجار المكتب)":"Contract name (e.g. office lease)","تاريخ العقد":"Contract date",
+"تاريخ انتهاء العقد (اتركه فارغًا ليحاول الذكاء الاصطناعي استخراجه من النص)":"Contract end date (leave empty to let AI extract it from the text)",
+"نبّهني قبل الانتهاء بـ (أيام)":"Remind me before expiry (days)","نوع العقد":"Contract type","إيجار":"Lease","توريد":"Supply","خدمات":"Services","عمل":"Employment","أخرى":"Other","كل الأنواع":"All types",
+"اكتب أو الصق نص العقد هنا (اختياري)":"Type or paste the contract text here (optional)","📋 لصق من الحافظة":"📋 Paste from clipboard","🧪 عقد تجريبي":"🧪 Sample contract","مسح النص":"Clear text",
+"أو ارفع صورة أو ملف PDF:":"Or upload an image or PDF file:","حفظ العقد":"Save contract","🔍 ابحث باسم العقد أو التاريخ":"🔍 Search by contract name or date",
+"مهمة جديدة":"New task","المهمة":"Task","إضافة":"Add","لا توجد مهام.":"No tasks.",
+"حسابي":"My account","🏠 الرئيسية":"🏠 Home","📁 ملفاتي":"📁 My Files","✅ المهام اليومية":"✅ Daily Tasks","✏️ تعديل الاسم":"✏️ Edit name","🔑 تعديل الرمز":"🔑 Change password",
+"🌓 الوضع الداكن / الفاتح":"🌓 Dark / light mode","📋 نسخ بياناتي احتياطيًا":"📋 Back up my data","🤖 تفعيل المساعد الذكي":"🤖 Enable AI assistant","🚪 تسجيل الخروج":"🚪 Sign out",
+"تعديل الاسم":"Edit name","تعديل الرمز":"Change password","حفظ":"Save","إلغاء":"Cancel","كلمة السر الحالية":"Current password","كلمة السر الجديدة":"New password","أعد الجديدة":"Repeat new password",
+"كلمة السر الحالية غير صحيحة.":"Current password is incorrect.","الجديدة 4 أحرف أو أرقام على الأقل.":"The new password must be at least 4 characters.",
+"تم النسخ":"Copied","تعذر النسخ":"Copy failed","تعذر الحفظ.":"Could not save.","نعم، احذف":"Yes, delete","تعذر الحذف:":"Delete failed:","تعذر الحفظ:":"Could not save:","خطأ غير معروف":"Unknown error",
+"التخزين غير متاح. افتح الصفحة من حسابك في claude.ai.":"Storage is unavailable. Open this page from your claude.ai account.","افتح الصفحة من claude.ai.":"Open this page from claude.ai.",
+"اكتب الاسم الكامل (اسمين على الأقل).":"Enter your full name (at least two names).","كلمة السر 4 أحرف أو أرقام على الأقل.":"The password must be at least 4 characters.","كلمتا السر غير متطابقتين.":"The passwords do not match.",
+"محاولات كثيرة، انتظر قليلًا.":"Too many attempts, please wait.","5 محاولات خاطئة. انتظر 15 ثانية.":"5 wrong attempts. Wait 15 seconds.","كلمة السر غير صحيحة.":"Incorrect password.","تعذر المتابعة:":"Could not continue:","تم تسجيل الخروج.":"You have been signed out.",
+"لا مهام مفتوحة 🎉":"No open tasks 🎉","لا توجد عقود بعد.":"No contracts yet.","بلا موعد":"No due date","لا توجد عقود محفوظة بعد.":"No saved contracts yet.","لا نتائج مطابقة.":"No matching results.",
+"بلا تاريخ":"No date","ينتهي":"Ends","صورة":"Image","نص":"Text","عرض":"View","حذف":"Delete",
+"تم الحفظ ✓ (بلا تاريخ انتهاء، لن يصلك تنبيه لهذا العقد)":"Saved ✓ (no end date, so you will not get an alert for this contract)","تم الحفظ ✓":"Saved ✓","(استُخرج تلقائيًا، تأكد منه)":"(extracted automatically, please verify)",
+"لم تُحفظ الصورة لأنها تعذرت قراءتها.":"The image was not saved because it could not be read.","جارٍ الحفظ...":"Saving...","جارٍ البحث عن تاريخ الانتهاء...":"Looking for the end date...",
+"اكتب اسم العقد.":"Enter the contract name.","اكتب نص العقد أو ارفع صورة.":"Enter the contract text or upload an image.","تعذر قراءة الملف. جرّب صورة JPG أو PNG أو ملف PDF فيه نص (صور HEIC قد لا تعمل).":"Could not read the file. Try a JPG or PNG image, or a PDF containing text (HEIC photos may not work).",
+"تحليل أولي (ليس استشارة قانونية)":"Preliminary analysis (not legal advice)","التواريخ المهمة":"Key dates","الالتزامات":"Obligations","نقاط تحتاج انتباهًا":"Points needing attention","لا يوجد":"None",
+"تاريخ الانتهاء:":"End date:","حفظ تاريخ الانتهاء":"Save end date","تم ✓":"Done ✓","تعذر الحفظ":"Could not save","إعادة التحليل":"Re-analyze","حلّل العقد بالذكاء الاصطناعي":"Analyze contract with AI","جارٍ التحليل...":"Analyzing...","التحليل غير متاح هنا.":"Analysis is not available here.",
+"التحليل التلقائي للنص فقط، لكن يمكنك سؤال المساعد عن الصورة أدناه.":"Automatic analysis works on text only, but you can ask the assistant about the image below.",
+"🌐 ترجمة العقد":"🌐 Translate contract","ترجم إلى:":"Translate to:","ترجم":"Translate","العربية":"Arabic","الإنجليزية":"English","جارٍ الترجمة...":"Translating...","ترجمة محفوظة":"Saved translation",
+"الترجمة مقتطعة لطول العقد.":"The translation was cut off because the contract is long.","تمت الترجمة. هي للفهم وليست ترجمة معتمدة.":"Translation done. It is for understanding only, not a certified translation.",
+"قراءة الصور غير متاحة هنا، الصق نص العقد.":"Image reading is not available here; paste the contract text.",
+"🤖 اسأل المساعد عن هذا العقد":"🤖 Ask the assistant about this contract","اكتب سؤالك عن العقد...":"Type your question about the contract...","إرسال":"Send",
+"لخّص العقد":"Summarize the contract","ما التزاماتي؟":"What are my obligations?","اشرح بنود الإنهاء والتجديد":"Explain the termination and renewal clauses","ما البنود الغامضة أو المخاطر؟":"What are the unclear clauses or risks?","اشرح العقد بلغة بسيطة":"Explain the contract in simple language",
+"قراءة الصور غير متاحة هنا. الصق نص العقد ليتمكن المساعد من شرحه.":"Image reading is not available here. Paste the contract text so the assistant can explain it.",
+"الحافظة فارغة. انسخ نص العقد أولًا.":"The clipboard is empty. Copy the contract text first.","تم لصق العقد ✓":"Contract pasted ✓","المتصفح منع اللصق التلقائي. اضغط داخل الخانة مطوّلًا أو استخدم Ctrl+V.":"The browser blocked automatic paste. Long-press the box or use Ctrl+V.",
+"تمت تعبئة عقد تجريبي. اضغط «حفظ العقد».":"Sample contract filled in. Press “Save contract”.",
+"جارٍ قراءة ملف PDF...":"Reading PDF file...","الملف ممسوح ضوئيًا (بلا نص). ستُحفظ صفحته الأولى كصورة.":"The file is scanned (no text). Its first page will be saved as an image.","تعذر استخراج محتوى من الملف.":"Could not extract content from the file.","تعذرت قراءة ملف PDF.":"Could not read the PDF file.",
+"لم يُسمح للموقع باستخدام Claude. أعد تحميل الصفحة، وعند ظهور نافذة الإذن اضغط «سماح». إن لم تظهر النافذة فقد يكون الاستخدام غير مفعّل لحسابك أو مؤسستك.":"The site was not allowed to use Claude. Reload the page and press “Allow” when the permission window appears. If it does not appear, usage may not be enabled for your account or organization.",
+"خدمة Claude غير متاحة لحسابك أو مؤسستك.":"Claude is not available for your account or organization.","وصلت إلى حد الاستخدام مؤقتًا، حاول بعد قليل.":"You have temporarily reached the usage limit; try again shortly.","تعذر الطلب:":"Request failed:",
+"حسنًا":"OK","جارٍ اختبار المساعد الذكي... إن ظهرت نافذة إذن فاضغط «سماح».":"Testing the AI assistant... If a permission window appears, press “Allow”.","تم تفعيل المساعد الذكي ✓ يمكنك الآن الترجمة والتحليل والأسئلة.":"AI assistant enabled ✓ You can now translate, analyze and ask questions."
+};
+const DK = Object.keys(D).filter(k => k.length >= 7).sort((a, b) => b.length - a.length);
+const RX = [
+ [/^أهلًا(\s|$)/, "Welcome$1"],
+ [/حذف «(.*?)» نهائيًا؟/, "Delete «$1» permanently?"],
+ [/انتهى عقد «(.*?)» منذ (\d+) يومًا/, "Contract «$1» expired $2 days ago"],
+ [/عقد «(.*?)» ينتهي اليوم/, "Contract «$1» expires today"],
+ [/عقد «(.*?)» ينتهي بعد (\d+) يومًا/, "Contract «$1» expires in $2 days"],
+ [/مهمة متأخرة: (.*) \(منذ (\d+) يومًا\)/, "Overdue task: $1 ($2 days ago)"],
+ [/مهمة اليوم: /, "Task due today: "], [/مهمة غدًا: /, "Task due tomorrow: "],
+ [/تنبيهات \((\d+)\)/, "Alerts ($1)"], [/^ينتهي (\d{4}-\d{2}-\d{2})/, "Ends $1"],
+ [/تم استخراج النص من (\d+) صفحة\. راجعه ثم احفظ\./, "Text extracted from $1 pages. Review it, then save."],
+ [/تم الحفظ ✓ تاريخ الانتهاء: /, "Saved ✓ End date: "]
+];
+function tr1(s){
+  const t = s.trim(); if(Object.prototype.hasOwnProperty.call(D, t)) return s.replace(t, () => D[t]);
+  let r = s; RX.forEach(([a, b]) => { r = r.replace(a, b); });
+  DK.forEach(k => { if(r.includes(k)) r = r.split(k).join(D[k]); });
+  return r;
+}
+const tr = s => s.includes(" · ") ? s.split(" · ").map(tr1).join(" · ") : tr1(s);
+const AR = /[\u0600-\u06FF]/, OR = new WeakMap();
+function doText(n){
+  const p = n.parentElement; if(!p || p.closest("pre,textarea,script,style,[data-notr]")) return;
+  if(!OR.has(n)){ if(!AR.test(n.data)) return; OR.set(n, n.data); }
+  const o = OR.get(n), v = LANG == "en" ? tr(o) : o; if(n.data !== v) n.data = v;
+}
+function doAttr(e){
+  ["placeholder", "aria-label"].forEach(a => {
+    if(!e.hasAttribute(a)) return; e._o = e._o || {};
+    if(!(a in e._o)){ const v = e.getAttribute(a); if(!AR.test(v)) return; e._o[a] = v; }
+    e.setAttribute(a, LANG == "en" ? tr(e._o[a]) : e._o[a]);
+  });
+}
+function walk(root){
+  if(root.nodeType == 3) return doText(root); if(root.nodeType != 1) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let n; while(n = w.nextNode()) doText(n);
+  doAttr(root); root.querySelectorAll("[placeholder],[aria-label]").forEach(doAttr);
+}
+const obs = new MutationObserver(recs => {
+  recs.forEach(r => { if(r.type == "characterData"){ OR.delete(r.target); doText(r.target); } else r.addedNodes.forEach(walk); });
+  obs.takeRecords();
+});
+obs.observe(document.body, {childList:true, subtree:true, characterData:true});
+function setLang(l){
+  LANG = l; const h = document.documentElement; h.lang = l; h.dir = l == "en" ? "ltr" : "rtl";
+  document.title = l == "en" ? "Aqdi - Contracts & Tasks Vault" : "عقدي - خزنة العقود والمهام";
+  $("lg").textContent = l == "en" ? "🌐 العربية" : "🌐 English";
+  if(!$("app").classList.contains("hide")) buildDrawer();
+  walk(document.body); obs.takeRecords();
+  try{ localStorage.setItem("aqdi-lang", l); }catch(e){}
+}
+function toggleLang(){ closeDr(); setLang(LANG == "en" ? "ar" : "en"); }
+$("lg").onclick = toggleLang;
+try{ if(localStorage.getItem("aqdi-lang") == "en") setLang("en"); }catch(e){}
+
+if(window.claude) boot(); else boot();
+</script>
+</body>
+</html>
